@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geniusphere - Inspiring Futures and Igniting Passions</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
+    <style>
+        :root {
+            --primary-bg: #0A1625;
+            --secondary-bg: #101F33;
+            --accent-blue: #00BFFF;
+            --accent-green: #39FF14;
+            --text-light: #F5F5F5;
+            --text-muted: #B0B0B0;
+            --card-bg: rgba(255, 255, 255, 0.05);
+            --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --neon-glow: 0 0 10px rgba(0, 191, 255, 0.7);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Custom Cursor */
+        .cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: rgba(0, 191, 255, 0.3);
+            border: 2px solid var(--accent-blue);
+            pointer-events: none;
+            mix-blend-mode: screen;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease;
+        }
+        
+        .cursor-grow {
+            width: 40px;
+            height: 40px;
+            background: rgba(57, 255, 20, 0.2);
+            border-color: var(--accent-green);
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            background-color: rgba(10, 22, 37, 0.95);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-green));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            transition: var(--transition);
+        }
+        
+        .logo:hover {
+            transform: scale(1.05);
+            text-shadow: var(--neon-glow);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            font-weight: 500;
+            position: relative;
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent-blue);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--accent-green);
+            transition: var(--transition);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .cta-button {
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: var(--transition);
+            border: 2px solid var(--accent-blue);
+            background: transparent;
+            color: var(--text-light);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 191, 255, 0.3), transparent);
+            transition: 0.5s;
+            z-index: -1;
+        }
+        
+        .cta-button:hover::before {
+            left: 100%;
+        }
+        
+        .cta-button:hover {
+            background: var(--accent-blue);
+            color: var(--primary-bg);
+            box-shadow: var(--neon-glow);
+            transform: translateY(-3px);
+        }
+        
+        .cta-button.secondary {
+            border-color: var(--accent-green);
+        }
+        
+        .cta-button.secondary:hover {
+            background: var(--accent-green);
+            color: var(--primary-bg);
+            box-shadow: 0 0 15px rgba(57, 255, 20, 0.5);
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+            position: relative;
+            overflow: hidden;
+            background: radial-gradient(circle at center, var(--secondary-bg) 0%, var(--primary-bg) 100%);
+        }
+        
+        .hero-content {
+            max-width: 600px;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            background: linear-gradient(90deg, var(--text-light), var(--accent-blue));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 0 0 10px rgba(0, 191, 255, 0.3);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: var(--text-muted);
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        /* Course Categories Section */
+        .courses-section {
+            padding: 100px 0;
+            background-color: var(--secondary-bg);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+            font-size: 2.5rem;
+        }
+        
+        .section-title span {
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-green));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .course-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .course-category {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .course-category:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--neon-glow);
+            border-color: var(--accent-blue);
+        }
+        
+        .course-category::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-green));
+            transition: var(--transition);
+        }
+        
+        .course-category:hover::before {
+            height: 10px;
+        }
+        
+        .category-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--accent-blue);
+            transition: var(--transition);
+        }
+        
+        .course-category:hover .category-icon {
+            color: var(--accent-green);
+            transform: scale(1.2);
+        }
+        
+        .course-category h3 {
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+        
+        .course-list {
+            list-style-type: none;
+        }
+        
+        .course-list li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 25px;
+            transition: var(--transition);
+        }
+        
+        .course-list li:hover {
+            color: var(--accent-blue);
+            transform: translateX(5px);
+        }
+        
+        .course-list li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--accent-green);
+        }
+        
+        /* Course Modal */
+        .course-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .course-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal-content {
+            background: var(--secondary-bg);
+            border-radius: 15px;
+            width: 90%;
+            max-width: 1000px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 40px;
+            position: relative;
+            border: 1px solid var(--accent-blue);
+            box-shadow: var(--neon-glow);
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .close-modal:hover {
+            color: var(--accent-green);
+            transform: rotate(90deg);
+        }
+        
+        .modal-header {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .modal-header h2 {
+            font-size: 2rem;
+            color: var(--accent-blue);
+            margin-bottom: 10px;
+        }
+        
+        .modal-header p {
+            color: var(--text-muted);
+        }
+        
+        .course-carousel {
+            margin-bottom: 40px;
+        }
+        
+        .swiper {
+            width: 100%;
+            height: 400px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .swiper-slide {
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            padding: 30px;
+            color: white;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .swiper-slide::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            z-index: 1;
+        }
+        
+        .slide-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .session-title {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: var(--accent-green);
+        }
+        
+        .session-topics {
+            list-style-type: none;
+            margin-top: 20px;
+        }
+        
+        .session-topics li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        .session-topics li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--accent-blue);
+            font-size: 1.2rem;
+        }
+        
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 60px 0 30px;
+            position: relative;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-green));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+        
+        .footer-about p {
+            color: var(--text-muted);
+            margin-bottom: 20px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--neon-glow);
+        }
+        
+        .footer-links h4 {
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+        
+        .footer-links ul {
+            list-style-type: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: var(--text-muted);
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent-green);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .button-group {
+                flex-direction: column;
+            }
+            
+            .course-categories {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-light);
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                height: 100vh;
+                background: var(--primary-bg);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 30px;
+                transition: var(--transition);
+                z-index: 1000;
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+            }
+            
+            .nav-links.active {
+                right: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    
+    <!-- Header -->
+    <header id="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">Geniusphere</a>
+                
+                <div class="nav-links">
+                    <a href="#about">About</a>
+                    <a href="#courses">Courses</a>
+                    <a href="#team">Team</a>
+                    <a href="#contact">Contact</a>
+                </div>
+                
+                <button class="cta-button">Join Us</button>
+                
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Inspiring Futures and Igniting Passions</h1>
+                <p>Empowering students with cutting-edge knowledge in technology, finance, and professional skills to shape the leaders of tomorrow.</p>
+                <div class="button-group">
+                    <a href="#courses" class="cta-button">Explore Courses</a>
+                    <a href="#contact" class="cta-button secondary">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Course Categories Section -->
+    <section class="courses-section" id="courses">
+        <div class="container">
+            <h2 class="section-title">Our <span>Course Categories</span></h2>
+            
+            <div class="course-categories">
+                <!-- Tech Category -->
+                <div class="course-category" data-category="tech">
+                    <div class="category-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3>💻 Technology</h3>
+                    <ul class="course-list">
+                        <li>Microsoft Tools</li>
+                        <li>Internet of Things (IoT)</li>
+                        <li>Cybersecurity Basics</li>
+                        <li>Coding Basics</li>
+                        <li>Blockchain</li>
+                        <li>Artificial Intelligence (AI)</li>
+                    </ul>
+                </div>
+                
+                <!-- Finance Category -->
+                <div class="course-category" data-category="finance">
+                    <div class="category-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>💰 Finance</h3>
+                    <ul class="course-list">
+                        <li>Introduction to Finance</li>
+                        <li>Stock Market Basics</li>
+                        <li>Cryptocurrency Market</li>
+                        <li>Fintech</li>
+                        <li>Types of Bank Accounts</li>
+                        <li>Global Economy</li>
+                    </ul>
+                </div>
+                
+                <!-- Professional Skills Category -->
+                <div class="course-category" data-category="skills">
+                    <div class="category-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3>🧠 Professional Skills</h3>
+                    <ul class="course-list">
+                        <li>Time Management</li>
+                        <li>Social Profile Development</li>
+                        <li>Communication Skills</li>
+                        <li>Soft Skills</li>
+                        <li>Startup Ideation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Course Modal -->
+    <div class="course-modal" id="courseModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            
+            <div class="modal-header">
+                <h2 id="modalCourseTitle">Course Title</h2>
+                <p id="modalCourseDesc">Course description goes here</p>
+            </div>
+            
+            <div class="course-carousel">
+                <div class="swiper">
+                    <div class="swiper-wrapper" id="courseSwiperWrapper">
+                        <!-- Slides will be added dynamically -->
+                    </div>
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <div class="footer-logo">Geniusphere</div>
+                    <p>Empowering the next generation with knowledge and skills for the future.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#courses">Courses</a></li>
+                        <li><a href="#team">Our Team</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Courses</h4>
+                    <ul>
+                        <li><a href="#" data-category="tech">Technology</a></li>
+                        <li><a href="#" data-category="finance">Finance</a></li>
+                        <li><a href="#" data-category="skills">Professional Skills</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><i class="fas fa-map-marker-alt"></i> Bangalore, India</li>
+                        <li><i class="fas fa-phone"></i> +91 9876543210</li>
+                        <li><i class="fas fa-envelope"></i> info@geniusphere.com</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                &copy; 2023 Geniusphere. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.classList.toggle('active');
+        });
+        
+        // Cursor Animation
+        const cursor = document.querySelector('.cursor');
+        
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+        
+        document.querySelectorAll('a, button, .course-category').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                cursor.classList.add('cursor-grow');
+            });
+            el.addEventListener('mouseleave', () => {
+                cursor.classList.remove('cursor-grow');
+            });
+        });
+        
+        // Course Modal Functionality
+        const courseModal = document.getElementById('courseModal');
+        const closeModal = document.querySelector('.close-modal');
+        const modalCourseTitle = document.getElementById('modalCourseTitle');
+        const modalCourseDesc = document.getElementById('modalCourseDesc');
+        const courseSwiperWrapper = document.getElementById('courseSwiperWrapper');
+        
+        // Course data
+        const courses = {
+            tech: {
+                title: "💻 Technology Courses",
+                desc: "Explore our cutting-edge technology courses designed for the digital age",
+                sessions: [
+                    {
+                        title: "Microsoft Tools",
+                        topics: [
+                            "Word advanced features",
+                            "Excel formulas and macros",
+                            "PowerPoint design principles",
+                            "Outlook productivity tips"
+                        ]
+                    },
+                    {
+                        title: "Internet of Things (IoT)",
+                        topics: [
+                            "Introduction to IoT concepts",
+                            "IoT device architecture",
+                            "Data collection and analysis",
+                            "Practical IoT applications"
+                        ]
+                    },
+                    {
+                        title: "Cybersecurity Basics",
+                        topics: [
+                            "Understanding cyber threats",
+                            "Password management",
+                            "Secure browsing practices",
+                            "Data protection fundamentals"
+                        ]
+                    },
+                    {
+                        title: "Coding Basics",
+                        topics: [
+                            "Introduction to programming",
+                            "Python fundamentals",
+                            "Problem-solving with code",
+                            "Building simple applications"
+                        ]
+                    },
+                    {
+                        title: "Blockchain",
+                        topics: [
+                            "Blockchain fundamentals",
+                            "Cryptocurrency basics",
+                            "Smart contracts",
+                            "Decentralized applications"
+                        ]
+                    },
+                    {
+                        title: "Artificial Intelligence (AI)",
+                        topics: [
+                            "AI concepts overview",
+                            "Machine learning basics",
+                            "Neural networks",
+                            "Practical AI applications"
+                        ]
+                    }
+                ]
+            },
+            finance: {
+                title: "💰 Finance Courses",
+                desc: "Master financial concepts and build wealth with our expert-led courses",
+                sessions: [
+                    {
+                        title: "Introduction to Finance",
+                        topics: [
+                            "Personal finance basics",
+                            "Budgeting techniques",
+                            "Saving strategies",
+                            "Financial goal setting"
+                        ]
+                    },
+                    {
+                        title: "Stock Market Basics",
+                        topics: [
+                            "How stock markets work",
+                            "Fundamental analysis",
+                            "Technical analysis",
+                            "Building a portfolio"
+                        ]
+                    },
+                    {
+                        title: "Cryptocurrency Market",
+                        topics: [
+                            "Blockchain fundamentals",
+                            "Major cryptocurrencies",
+                            "Trading strategies",
+                            "Risk management"
+                        ]
+                    },
+                    {
+                        title: "Fintech",
+                        topics: [
+                            "Digital banking",
+                            "Payment systems",
+                            "Investment apps",
+                            "Future of finance"
+                        ]
+                    },
+                    {
+                        title: "Types of Bank Accounts",
+                        topics: [
+                            "Savings accounts",
+                            "Current accounts",
+                            "Fixed deposits",
+                            "Investment accounts"
+                        ]
+                    },
+                    {
+                        title: "Global Economy",
+                        topics: [
+                            "Macroeconomic concepts",
+                            "International trade",
+                            "Currency markets",
+                            "Economic indicators"
+                        ]
+                    }
+                ]
+            },
+            skills: {
+                title: "🧠 Professional Skills",
+                desc: "Develop essential skills for career success and personal growth",
+                sessions: [
+                    {
+                        title: "Time Management",
+                        topics: [
+                            "Prioritization techniques",
+                            "Productivity systems",
+                            "Goal setting",
+                            "Overcoming procrastination"
+                        ]
+                    },
+                    {
+                        title: "Social Profile Development",
+                        topics: [
+                            "LinkedIn optimization",
+                            "Personal branding",
+                            "Networking strategies",
+                            "Online presence"
+                        ]
+                    },
+                    {
+                        title: "Communication Skills",
+                        topics: [
+                            "Effective speaking",
+                            "Active listening",
+                            "Non-verbal communication",
+                            "Presentation skills"
+                        ]
+                    },
+                    {
+                        title: "Soft Skills",
+                        topics: [
+                            "Teamwork",
+                            "Problem solving",
+                            "Adaptability",
+                            "Emotional intelligence"
+                        ]
+                    },
+                    {
+                        title: "Startup Ideation",
+                        topics: [
+                            "Identifying opportunities",
+                            "Business model canvas",
+                            "Market research",
+                            "Pitching ideas"
+                        ]
+                    }
+                ]
+            }
+        };
+        
+        // Course category click handler
+        document.querySelectorAll('.course-category, .footer-links a[data-category]').forEach(category => {
+            category.addEventListener('click', (e) => {
+                e.preventDefault();
+                const categoryType = category.getAttribute('data-category');
+                const courseData = courses[categoryType];
+                
+                // Set modal content
+                modalCourseTitle.textContent = courseData.title;
+                modalCourseDesc.textContent = courseData.desc;
+                
+                // Clear previous slides
+                courseSwiperWrapper.innerHTML = '';
+                
+                // Add new slides
+                courseData.sessions.forEach(session => {
+                    const slide = document.createElement('div');
+                    slide.className = 'swiper-slide';
+                    slide.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://source.unsplash.com/random/800x600/?${encodeURIComponent(session.title)}')`;
+                    
+                    const slideContent = document.createElement('div');
+                    slideContent.className = 'slide-content';
+                    
+                    const sessionTitle = document.createElement('h3');
+                    sessionTitle.className = 'session-title';
+                    sessionTitle.textContent = session.title;
+                    
+                    const topicsList = document.createElement('ul');
+                    topicsList.className = 'session-topics';
+                    
+                    session.topics.forEach(topic => {
+                        const topicItem = document.createElement('li');
+                        topicItem.textContent = topic;
+                        topicsList.appendChild(topicItem);
+                    });
+                    
+                    slideContent.appendChild(sessionTitle);
+                    slideContent.appendChild(topicsList);
+                    slide.appendChild(slideContent);
+                    courseSwiperWrapper.appendChild(slide);
+                });
+                
+                // Initialize or reinitialize Swiper
+                if (window.courseSwiper) {
+                    window.courseSwiper.destroy();
+                }
+                
+                window.courseSwiper = new Swiper('.swiper', {
+                    loop: true,
+                    pagination: {
+                        el: '.swiper-pagination',
+                        clickable: true,
+                    },
+                    navigation: {
+                        nextEl: '.swiper-button-next',
+                        prevEl: '.swiper-button-prev',
+                    },
+                });
+                
+                // Show modal
+                courseModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+        
+        // Close modal
+        closeModal.addEventListener('click', () => {
+            courseModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+        
+        // Close modal when clicking outside
+        courseModal.addEventListener('click', (e) => {
+            if (e.target === courseModal) {
+                courseModal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+    </script>
+</body>
+</html>

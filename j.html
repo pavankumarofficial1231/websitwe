@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geniusphere - Tech & Finance Education for Students</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <style>
+        :root {
+            --primary-bg: #0f172a;
+            --secondary-bg: #1e293b;
+            --card-bg: #1e293b;
+            --text-light: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-blue: #60a5fa;
+            --accent-green: #4ade80;
+            --accent-purple: #a78bfa;
+            --accent-orange: #fb923c;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--primary-bg);
+            color: var(--text-light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Floating Tech Elements */
+        .floating-tech {
+            position: absolute;
+            opacity: 0.1;
+            z-index: 0;
+            font-size: 1.5rem;
+            animation: floatTech 15s linear infinite;
+        }
+
+        @keyframes floatTech {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.2;
+            }
+            90% {
+                opacity: 0.2;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* Courses Section */
+        .courses-section {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .course-category {
+            margin-bottom: 60px;
+        }
+
+        .course-category h2 {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .course-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .course-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(96, 165, 250, 0.1) 0%, transparent 70%);
+            transform: rotate(30deg);
+            z-index: -1;
+            transition: var(--transition);
+            opacity: 0;
+        }
+
+        .course-card:hover::before {
+            opacity: 1;
+            animation: rotateGradient 6s linear infinite;
+        }
+
+        @keyframes rotateGradient {
+            0% {
+                transform: rotate(30deg);
+            }
+            100% {
+                transform: rotate(390deg);
+            }
+        }
+
+        .course-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            display: inline-block;
+            transition: var(--transition);
+        }
+
+        .course-card:hover .course-icon {
+            transform: scale(1.2) rotate(10deg);
+        }
+
+        .course-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--accent-blue);
+        }
+
+        .course-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+
+        .course-card .btn {
+            display: inline-block;
+            padding: 8px 15px;
+            background: rgba(96, 165, 250, 0.1);
+            color: var(--accent-blue);
+            border-radius: 5px;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .course-card:hover .btn {
+            background: var(--accent-blue);
+            color: white;
+        }
+
+        /* Tech Category */
+        .tech-category .course-card:hover {
+            border-color: var(--accent-blue);
+            box-shadow: 0 10px 30px rgba(96, 165, 250, 0.2);
+        }
+
+        .tech-category .course-icon {
+            color: var(--accent-blue);
+        }
+
+        /* Finance Category */
+        .finance-category .course-card:hover {
+            border-color: var(--accent-green);
+            box-shadow: 0 10px 30px rgba(74, 222, 128, 0.2);
+        }
+
+        .finance-category .course-icon {
+            color: var(--accent-green);
+        }
+
+        .finance-category .course-card::before {
+            background: radial-gradient(circle, rgba(74, 222, 128, 0.1) 0%, transparent 70%);
+        }
+
+        .finance-category .course-card .btn {
+            background: rgba(74, 222, 128, 0.1);
+            color: var(--accent-green);
+        }
+
+        .finance-category .course-card:hover .btn {
+            background: var(--accent-green);
+            color: white;
+        }
+
+        /* Professional Category */
+        .professional-category .course-card:hover {
+            border-color: var(--accent-orange);
+            box-shadow: 0 10px 30px rgba(251, 146, 60, 0.2);
+        }
+
+        .professional-category .course-icon {
+            color: var(--accent-orange);
+        }
+
+        .professional-category .course-card::before {
+            background: radial-gradient(circle, rgba(251, 146, 60, 0.1) 0%, transparent 70%);
+        }
+
+        .professional-category .course-card .btn {
+            background: rgba(251, 146, 60, 0.1);
+            color: var(--accent-orange);
+        }
+
+        .professional-category .course-card:hover .btn {
+            background: var(--accent-orange);
+            color: white;
+        }
+
+        /* Schools Marquee */
+        .schools-marquee {
+            background: var(--secondary-bg);
+            padding: 50px 0;
+            margin: 60px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .schools-marquee h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2rem;
+        }
+
+        .schools-track {
+            display: flex;
+            gap: 30px;
+            width: max-content;
+            animation: scrollSchools 30s linear infinite;
+        }
+
+        @keyframes scrollSchools {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+
+        .school-card {
+            width: 250px;
+            height: 150px;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            transition: var(--transition);
+            flex-shrink: 0;
+        }
+
+        .school-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .school-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .school-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            padding: 15px;
+            color: white;
+        }
+
+        .school-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .school-location {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        /* Modal for School Details */
+        .school-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .school-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            width: 90%;
+            max-width: 800px;
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+            transform: scale(0.9);
+            transition: var(--transition);
+        }
+
+        .school-modal.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            height: 250px;
+            position: relative;
+        }
+
+        .modal-header img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .modal-header-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 30px;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            color: white;
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: var(--transition);
+            z-index: 1;
+        }
+
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(90deg);
+        }
+
+        /* Add more styles from previous code as needed */
+        /* ... (include all previous styles from the earlier code) ... */
+
+    </style>
+</head>
+<body>
+    <!-- Custom Cursor Elements -->
+    <div class="cursor"></div>
+    <div class="neon-circle"></div>
+    
+    <!-- Floating Tech Elements -->
+    <div class="floating-tech" style="top: 10%; left: 5%; animation-delay: 0s;">💻</div>
+    <div class="floating-tech" style="top: 20%; left: 80%; animation-delay: 3s;">🌐</div>
+    <div class="floating-tech" style="top: 50%; left: 15%; animation-delay: 6s;">🔐</div>
+    <div class="floating-tech" style="top: 70%; left: 75%; animation-delay: 9s;">👨‍💻</div>
+    <div class="floating-tech" style="top: 30%; left: 50%; animation-delay: 12s;">⛓️</div>
+    <div class="floating-tech" style="top: 80%; left: 30%; animation-delay: 15s;">🤖</div>
+    <div class="floating-tech" style="top: 15%; left: 60%; animation-delay: 18s;">💰</div>
+    <div class="floating-tech" style="top: 65%; left: 20%; animation-delay: 21s;">📈</div>
+    <div class="floating-tech" style="top: 40%; left: 85%; animation-delay: 24s;">₿</div>
+    <div class="floating-tech" style="top: 90%; left: 60%; animation-delay: 27s;">📲</div>
+
+    <!-- Header -->
+    <header id="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">Geniusphere</a>
+                
+                <div class="nav-links">
+                    <a href="#about">About</a>
+                    <a href="#courses">Courses</a>
+                    <a href="#schools">Schools</a>
+                    <a href="#team">Team</a>
+                    <a href="#blog">Blog</a>
+                    <a href="#contact">Contact</a>
+                </div>
+                
+                <button class="cta-button">Join Us</button>
+                
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Inspiring Futures and Igniting Passions</h1>
+                <p>Empowering students with cutting-edge knowledge in technology, finance, and innovation to shape the leaders of tomorrow.</p>
+                <div class="button-group">
+                    <a href="#courses" class="cta-button">Explore Courses</a>
+                    <a href="#schools" class="cta-button secondary">Our Schools</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section class="section courses-section" id="courses">
+        <div class="container">
+            <h2 class="section-title">Our <span>Courses</span></h2>
+            
+            <!-- Tech Courses -->
+            <div class="course-category tech-category">
+                <h2><i class="fas fa-laptop-code"></i> Tech Courses</h2>
+                <div class="course-grid">
+                    <div class="course-card">
+                        <div class="course-icon">💻</div>
+                        <h3>Microsoft Tools</h3>
+                        <p>Learn Word, Excel, PowerPoint like a pro with hands-on projects and real-world applications.</p>
+                        <a href="#" class="btn">Learn More</a>
+                    </div>
+                    
+                    <div class="course-card">
+                        <div class="course-icon">🌐</div>
+                        <h3>IoT Basics</h3>
+                        <p>Connect the world with smart devices and understand the Internet of Things ecosystem.</p>
+                        <a href="#" class="btn">Learn More</a>
+                    </div>
+                    
+                    <div class="course-card">
+                        <div class="course-icon">🔐</div>
+                        <h3>Cybersecurity Basics</h3>
+                        <p>Stay safe online and understand how cybersecurity works in the digital age.</p>
+                        <a href="#" class="btn">Learn More</a>
+                    </div>
+                    
+                    <div class="course-card">
+                        <div class="course-icon">👨‍💻</div>
+                        <h3>Coding Basics</h3>
+                        <p>Start coding from scratch - no experience needed. Learn Python fundamentals.</p>
+                        <a href="#" class="btn">Learn More</a>
+                    </div>
+                    
+                    <div class="course-card">
+                        <div class="course-icon">⛓️</div>
+                        <h3>Blockchain</h3>
+                        <p>Understand decentralized tech & real-world uses of blockchain beyond cryptocurrency.</p>
+                        <a href="#" class="btn">Learn More</a>
+                    </div>
+                    
+                    <div class="course-card">
+                        <div class="course-icon">🤖</div>
+                        <h3>Artificial Intelligence</h3>
+                        <p>Dive into how AI works and how to use it in practical applications and projects.</p>
+                        <a href="#" class="btn">Learn More</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Finance Courses -->
+            <div class="course-category finance-category">
+                <h2><i class="fas fa-coins"></i> Finance Courses</h2>
+                <div class="course-grid">
+                    <div class="course-card">
+                        <div class="course-icon">💰</div>
+                        <h3>Intro to Finance</h3>
+                        <p>What is money, saving, and smart financial habits? Master personal finance basics.</p>
+                        <a href="#" class="btn">Learn More</a>
+                    </div>
+                    
+                    <div class="course-card">
+                        <div class="course-icon">📈</div>
+                        <h3>Stock Market Basics</h3>
+                        <p>Learn how stocks work and how investing starts with fundamental principles.</p>
+                        <a href="#" class="btn">Learn More</a>
+                    </div>
+                    
+                    <div class="course-card">
+                        <div class="course-icon">₿</div>
+                        <h3>Crypto Market Basics</h3>
+                        <p>What is crypto, Bitcoin, Ethereum, and essential safety tips for beginners.</p>
+                        <a href="#" class="btn">Learn More</a>
+                    </div>
+                    
+                    <div class="course-card">
+                        <div class="course-icon">📲</div>
+                        <h3>Fintech Innovations</h3>
+                        <p>The tech side of modern finance - digital payments, robo-advisors, and more.</p>
+                        <a href="#" class="btn">Learn More</a>
+                    </div>
+                    
+                    <div class="course-card">
+                        <div class="course-icon">🏦</div>
+                        <h3>Bank Accounts Types</h3>
+                        <p>Learn types of accounts & how banks function in the financial ecosystem.</p>
+                        <a href="#" class="btn">Learn More</a>
+                    </div>
+                    
+                    <div class="course-card">
+                        <div class="course-icon">🌍</div>
+                        <h3>Global Economy</h3>
+                        <p>Understand how world events affect your wallet and personal finances.</p>
+                        <a href="#" class="btn">Learn More</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Professional Skills Courses -->
+            <div class="course-category professional-category">
+                <h2><i class="fas fa-user-tie"></i> Professional Skills</h2>
+                <div class="course-grid">
+                    <div class="course-card">
+                        <div class="course-icon">⏳</div>
+                        <h3>Time Management</h3>
+                        <p>Learn to manage time effectively and crush procrastination with proven techniques.</p>
+                        <a href="#" class="btn">Learn More</a>
+                    </div>
+                    
+                    <div class="course-card">
+                        <div class="course-icon">📱</div>
+                        <h3>Social Profile Development</h3>
+                        <p>Build LinkedIn & personal brand online to boost your professional presence.</p>
+                        <a href="#" class="btn">Learn More</a>
+                    </div>
+                    
+                    <div class="course-card">
+                        <div class="course-icon">🗣️</div>
+                        <h3>Communication Skills</h3>
+                        <p>Speak with clarity and confidence in professional and academic settings.</p>
+                        <a href="#" class="btn">Learn More</a>
+                    </div>
+                    
+                    <div class="course-card">
+                        <div class="course-icon">🤝</div>
+                        <h3>Soft Skills</h3>
+                        <p>Master teamwork, problem-solving, and emotional intelligence for success.</p>
+                        <a href="#" class="btn">Learn More</a>
+                    </div>
+                    
+                    <div class="course-card">
+                        <div class="course-icon">💡</div>
+                        <h3>Startup Ideation</h3>
+                        <p>Create business ideas and learn how to build your own venture from scratch.</p>
+                        <a href="#" class="btn">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Schools Marquee Section -->
+    <section class="schools-marquee" id="schools">
+        <div class="container">
+            <h2>Our Partner Schools</h2>
+            <div class="schools-track">
+                <!-- School 1 -->
+                <div class="school-card" data-school="delhi-public">
+                    <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Delhi Public School">
+                    <div class="school-overlay">
+                        <div class="school-name">Delhi Public School</div>
+                        <div class="school-location">New Delhi, India</div>
+                    </div>
+                </div>
+                
+                <!-- School 2 -->
+                <div class="school-card" data-school="mumbai-international">
+                    <img src="https://images.unsplash.com/photo-1588072432836-e10032774350?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1472&q=80" alt="Mumbai International">
+                    <div class="school-overlay">
+                        <div class="school-name">Mumbai International</div>
+                        <div class="school-location">Mumbai, India</div>
+                    </div>
+                </div>
+                
+                <!-- School 3 -->
+                <div class="school-card" data-school="bangalore-high">
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80" alt="Bangalore High">
+                    <div class="school-overlay">
+                        <div class="school-name">Bangalore High</div>
+                        <div class="school-location">Bangalore, India</div>
+                    </div>
+                </div>
+                
+                <!-- School 4 -->
+                <div class="school-card" data-school="chennai-academy">
+                    <img src="https://images.unsplash.com/photo-1541178735493-479c1a27ed24?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80" alt="Chennai Academy">
+                    <div class="school-overlay">
+                        <div class="school-name">Chennai Academy</div>
+                        <div class="school-location">Chennai, India</div>
+                    </div>
+                </div>
+                
+                <!-- School 5 -->
+                <div class="school-card" data-school="hyderabad-public">
+                    <img src="https://images.unsplash.com/photo-1588072432836-e10032774350?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1472&q=80" alt="Hyderabad Public">
+                    <div class="school-overlay">
+                        <div class="school-name">Hyderabad Public</div>
+                        <div class="school-location">Hyderabad, India</div>
+                    </div>
+                </div>
+                
+                <!-- Duplicate for seamless looping -->
+                <div class="school-card" data-school="delhi-public">
+                    <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Delhi Public School">
+                    <div class="school-overlay">
+                        <div class="school-name">Delhi Public School</div>
+                        <div class="school-location">New Delhi, India</div>
+                    </div>
+                </div>
+                
+                <div class="school-card" data-school="mumbai-international">
+                    <img src="https://images.unsplash.com/photo-1588072432836-e10032774350?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1472&q=80" alt="Mumbai International">
+                    <div class="school-overlay">
+                        <div class="school-name">Mumbai International</div>
+                        <div class="school-location">Mumbai, India</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- School Modal -->
+    <div class="school-modal" id="schoolModal">
+        <div class="modal-content">
+            <div class="modal-close">
+                <i class="fas fa-times"></i>
+            </div>
+            <div class="modal-header">
+                <img src="" alt="School Image" id="modalSchoolImage">
+                <div class="modal-header-content">
+                    <h2 id="modalSchoolName">School Name</h2>
+                    <p id="modalSchoolLocation">Location</p>
+                </div>
+            </div>
+            <div class="modal-body">
+                <h3>About This School</h3>
+                <p id="modalSchoolDescription">Loading school information...</p>
+                
+                <h3 style="margin-top: 20px;">Programs Offered</h3>
+                <ul id="modalSchoolPrograms">
+                    <li>Loading programs...</li>
+                </ul>
+                
+                <div style="margin-top: 30px;">
+                    <a href="#" class="cta-button" id="modalSchoolContact">Contact School</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include other sections from previous code -->
+    <!-- Team, Blog, Contact, Footer sections would go here -->
+
+    <script>
+        // School Modal Functionality
+        const schoolCards = document.querySelectorAll('.school-card');
+        const schoolModal = document.getElementById('schoolModal');
+        const modalClose = document.querySelector('.modal-close');
+        
+        // School data (in a real app, this would come from an API)
+        const schoolsData = {
+            "delhi-public": {
+                name: "Delhi Public School",
+                location: "New Delhi, India",
+                image: "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+                description: "Delhi Public School is one of the premier educational institutions in India, known for its academic excellence and holistic development programs. We've partnered with them to bring cutting-edge tech and finance education to their students.",
+                programs: [
+                    "AI & Robotics Workshop",
+                    "Financial Literacy Program",
+                    "Coding Bootcamp",
+                    "Blockchain Fundamentals"
+                ],
+                contact: "mailto:dps@example.com"
+            },
+            "mumbai-international": {
+                name: "Mumbai International School",
+                location: "Mumbai, India",
+                image: "https://images.unsplash.com/photo-1588072432836-e10032774350?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1472&q=80",
+                description: "Mumbai International School focuses on global education standards with an emphasis on technology and business skills. Our partnership has helped introduce fintech and professional development courses to their curriculum.",
+                programs: [
+                    "Fintech Innovations Course",
+                    "Professional Skills Development",
+                    "Stock Market Simulation",
+                    "Cybersecurity Workshop"
+                ],
+                contact: "mailto:mis@example.com"
+            },
+            "bangalore-high": {
+                name: "Bangalore High School",
+                location: "Bangalore, India",
+                image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80",
+                description: "As a school in India's tech capital, Bangalore High has been at the forefront of integrating technology education. Our collaborative programs have helped students gain practical skills in coding, AI, and digital finance.",
+                programs: [
+                    "Web Development Track",
+                    "Crypto & Blockchain Basics",
+                    "IoT Fundamentals",
+                    "Time Management Masterclass"
+                ],
+                contact: "mailto:bhs@example.com"
+            },
+            "chennai-academy": {
+                name: "Chennai Academy",
+                location: "Chennai, India",
+                image: "https://images.unsplash.com/photo-1541178735493-479c1a27ed24?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80",
+                description: "Chennai Academy combines traditional education with modern technological skills. Our partnership has introduced innovative programs in Microsoft tools, cybersecurity, and global economics.",
+                programs: [
+                    "Microsoft Office Mastery",
+                    "Cybersecurity Basics",
+                    "Global Economy Course",
+                    "Banking Fundamentals"
+                ],
+                contact: "mailto:ca@example.com"
+            },
+            "hyderabad-public": {
+                name: "Hyderabad Public School",
+                location: "Hyderabad, India",
+                image: "https://images.unsplash.com/photo-1588072432836-e10032774350?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1472&q=80",
+                description: "Hyderabad Public School has embraced our tech and finance programs to prepare students for the digital economy. Their students have excelled in our coding and investment competitions.",
+                programs: [
+                    "Artificial Intelligence Intro",
+                    "Stock Market Challenge",
+                    "Startup Ideation Workshop",
+                    "Social Profile Development"
+                ],
+                contact: "mailto:hps@example.com"
+            }
+        };
+
+        // Open modal when school card is clicked
+        schoolCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const schoolId = card.getAttribute('data-school');
+                const schoolData = schoolsData[schoolId];
+                
+                document.getElementById('modalSchoolImage').src = schoolData.image;
+                document.getElementById('modalSchoolName').textContent = schoolData.name;
+                document.getElementById('modalSchoolLocation').textContent = schoolData.location;
+                document.getElementById('modalSchoolDescription').textContent = schoolData.description;
+                
+                const programsList = document.getElementById('modalSchoolPrograms');
+                programsList.innerHTML = '';
+                schoolData.programs.forEach(program => {
+                    const li = document.createElement('li');
+                    li.textContent = program;
+                    programsList.appendChild(li);
+                });
+                
+                document.getElementById('modalSchoolContact').href = schoolData.contact;
+                
+                schoolModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        // Close modal
+        modalClose.addEventListener('click', () => {
+            schoolModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+
+        // Close modal when clicking outside content
+        schoolModal.addEventListener('click', (e) => {
+            if (e.target === schoolModal) {
+                schoolModal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Include other JavaScript from previous code
+        // Mobile menu, animations, etc.
+    </script>
+</body>
+</html>

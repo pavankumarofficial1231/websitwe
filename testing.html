@@ -1,0 +1,1843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geniusphere - Tech & Finance Education for Students</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
+    <style>
+        :root {
+            --primary-bg: #0f172a;
+            --secondary-bg: #1e293b;
+            --card-bg: #1e293b;
+            --text-light: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-blue: #60a5fa;
+            --accent-green: #4ade80;
+            --accent-purple: #a78bfa;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--primary-bg);
+            color: var(--text-light);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            padding: 80px 0;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            text-align: center;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title span {
+            color: var(--accent-blue);
+            position: relative;
+        }
+
+        .section-title span::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-blue), transparent);
+            border-radius: 3px;
+        }
+
+        /* Header Styles */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            transition: var(--transition);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-light);
+            text-decoration: none;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-blue);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .cta-button {
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(96, 165, 250, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(96, 165, 250, 0.4);
+        }
+
+        .cta-button.secondary {
+            background: transparent;
+            border: 2px solid var(--accent-blue);
+            color: var(--accent-blue);
+            box-shadow: none;
+        }
+
+        .cta-button.secondary:hover {
+            background: var(--accent-blue);
+            color: white;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, #ffffff, #a5b4fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeInUp 1s ease 0.2s forwards;
+            opacity: 0;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            animation: fadeInUp 1s ease 0.4s forwards;
+            opacity: 0;
+        }
+
+        /* Features Section */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+            text-align: center;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 191, 255, 0.1);
+            border-color: var(--accent-blue);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--accent-blue);
+            margin-bottom: 20px;
+            display: inline-block;
+            transition: var(--transition);
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: rotate(15deg) scale(1.2);
+        }
+
+        .feature-card h3 {
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+
+        /* Stats Section */
+        .stats {
+            margin-top: 80px;
+        }
+
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            text-align: center;
+        }
+
+        .stat-item {
+            background: var(--card-bg);
+            padding: 30px 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        /* Tracks Section */
+        .tracks {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .track-card-container {
+            perspective: 1000px;
+            height: 400px;
+        }
+
+        .track-card {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform 0.8s;
+            border-radius: 15px;
+        }
+
+        .track-card.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .track-front, .track-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .track-back {
+            transform: rotateY(180deg);
+        }
+
+        .track-icon {
+            font-size: 2.5rem;
+            color: var(--accent-blue);
+            margin-bottom: 20px;
+        }
+
+        .track-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .track-topics {
+            list-style: none;
+            margin: 20px 0;
+            flex-grow: 1;
+        }
+
+        .track-topics li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        .track-topics li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--accent-blue);
+        }
+
+        .track-benefits {
+            list-style: none;
+            margin: 20px 0;
+            flex-grow: 1;
+        }
+
+        .track-benefits li {
+            margin-bottom: 15px;
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .track-benefits li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent-green);
+            font-weight: bold;
+        }
+
+        .flip-button {
+            align-self: flex-end;
+            background: none;
+            border: none;
+            color: var(--accent-blue);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .flip-button:hover {
+            transform: rotate(180deg);
+        }
+
+        /* Testimonials Section */
+        .testimonials {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonial-marquee {
+            overflow: hidden;
+            position: relative;
+            padding: 30px 0;
+        }
+
+        .testimonial-track {
+            display: flex;
+            gap: 30px;
+            width: max-content;
+        }
+
+        .testimonial-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            width: 350px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 191, 255, 0.2);
+        }
+
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-photo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--accent-blue);
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .testimonial-role {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        /* Sessions Carousel */
+        .sessions-carousel {
+            margin-top: 50px;
+        }
+
+        .swiper {
+            width: 100%;
+            height: 500px;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .swiper-slide {
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .swiper-slide::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+        }
+
+        .slide-content {
+            position: absolute;
+            bottom: 50px;
+            left: 50px;
+            max-width: 600px;
+            z-index: 2;
+            color: white;
+        }
+
+        .school-name {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .session-date {
+            font-size: 1.2rem;
+            color: var(--accent-blue);
+            margin-bottom: 20px;
+        }
+
+        .swiper-slide p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .swiper-pagination-bullet {
+            background: white;
+            opacity: 0.5;
+            width: 12px;
+            height: 12px;
+            transition: var(--transition);
+        }
+
+        .swiper-pagination-bullet-active {
+            background: var(--accent-blue);
+            opacity: 1;
+            transform: scale(1.2);
+        }
+
+        .swiper-button-next, .swiper-button-prev {
+            color: white;
+            background: rgba(255, 255, 255, 0.2);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            backdrop-filter: blur(5px);
+            transition: var(--transition);
+        }
+
+        .swiper-button-next::after, .swiper-button-prev::after {
+            font-size: 1.2rem;
+        }
+
+        .swiper-button-next:hover, .swiper-button-prev:hover {
+            background: rgba(96, 165, 250, 0.5);
+            transform: scale(1.1);
+        }
+
+        /* Team Section */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .team-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+        }
+
+        .team-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 191, 255, 0.1);
+            border-color: var(--accent-blue);
+        }
+
+        .team-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 20px;
+            border: 3px solid var(--accent-blue);
+            transition: var(--transition);
+        }
+
+        .team-card:hover .team-photo {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(96, 165, 250, 0.5);
+        }
+
+        .team-card h3 {
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .team-role {
+            color: var(--accent-blue);
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .team-bio {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Blog Section */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .blog-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+        }
+
+        .blog-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 191, 255, 0.1);
+        }
+
+        .blog-image {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .blog-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .blog-card:hover .blog-image img {
+            transform: scale(1.1);
+        }
+
+        .blog-content {
+            padding: 25px;
+        }
+
+        .blog-category {
+            display: inline-block;
+            padding: 5px 15px;
+            background: rgba(96, 165, 250, 0.1);
+            color: var(--accent-blue);
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .blog-title {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .blog-excerpt {
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        .read-more {
+            color: var(--accent-blue);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: var(--transition);
+        }
+
+        .read-more i {
+            transition: var(--transition);
+        }
+
+        .read-more:hover i {
+            transform: translateX(5px);
+        }
+
+        /* Demo Booking Section */
+        .booking-form {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: var(--text-light);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2);
+        }
+
+        /* Location Section */
+        .location-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 50px;
+            margin-top: 50px;
+            align-items: center;
+        }
+
+        .location-image {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .location-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: var(--transition);
+        }
+
+        .location-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .location-info {
+            color: var(--text-light);
+        }
+
+        .location-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--accent-blue);
+        }
+
+        .location-info p {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .location-info i {
+            color: var(--accent-blue);
+            width: 20px;
+            text-align: center;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--secondary-bg);
+            padding: 80px 0 30px;
+            position: relative;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 50px;
+            margin-bottom: 50px;
+        }
+
+        .footer-logo .logo {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
+
+        .footer-logo p {
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .footer-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 30px;
+        }
+
+        .footer-column h4 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--text-light);
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h4::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background: var(--accent-blue);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-column ul li a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-column ul li a:hover {
+            color: var(--accent-blue);
+            padding-left: 5px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .social-links a {
+            color: var(--text-light);
+            font-size: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .social-links a:hover {
+            transform: translateY(-5px);
+        }
+
+        .social-links .twitter:hover {
+            color: #1DA1F2;
+            text-shadow: 0 0 10px rgba(29, 161, 242, 0.5);
+        }
+
+        .social-links .threads:hover {
+            color: #000;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 50px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.7;
+            }
+            100% {
+                transform: scale(1.1);
+                opacity: 1;
+            }
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .button-group {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+                background: none;
+                border: none;
+                color: var(--text-light);
+                font-size: 1.5rem;
+                cursor: pointer;
+                z-index: 1001;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 80%;
+                height: 100vh;
+                background: var(--primary-bg);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 30px;
+                transition: var(--transition);
+                z-index: 1000;
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
+            }
+            
+            .nav-links.active {
+                right: 0;
+            }
+            
+            .swiper {
+                height: 400px;
+            }
+            
+            .slide-content {
+                left: 30px;
+                bottom: 30px;
+            }
+            
+            .school-name {
+                font-size: 1.5rem;
+            }
+            
+            .session-date {
+                font-size: 1rem;
+            }
+        }
+
+        /* Custom Cursor */
+        .cursor {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background-color: var(--accent-blue);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s ease;
+        }
+        
+        .neon-circle {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: rgba(0, 191, 255, 0.3);
+            border: 1px solid var(--accent-blue);
+            pointer-events: none;
+            mix-blend-mode: screen;
+            transform: translate(-50%, -50%);
+            z-index: 9998;
+            box-shadow: 0 0 10px var(--accent-blue), 0 0 20px var(--accent-blue);
+            transition: width 0.3s ease, height 0.3s ease, background 0.3s ease;
+        }
+        
+        .neon-circle.grow {
+            width: 40px;
+            height: 40px;
+            background: rgba(57, 255, 20, 0.2);
+            border-color: var(--accent-green);
+            box-shadow: 0 0 15px var(--accent-green), 0 0 30px var(--accent-green);
+        }
+        
+        /* Navigation Link Animations */
+        .nav-link-animate {
+            animation: navLinkFade 0.5s ease forwards;
+            opacity: 0;
+        }
+        
+        @keyframes navLinkFade {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        /* Tech Finance Animations */
+        .tech-animation {
+            position: relative;
+            width: 100%;
+            height: 200px;
+            margin: 50px 0;
+            overflow: hidden;
+        }
+        
+        .tech-item {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.7;
+            animation: floatTech 15s linear infinite;
+        }
+        
+        @keyframes floatTech {
+            0% {
+                transform: translateY(100%) translateX(-10%);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-100%) translateX(10%);
+                opacity: 0;
+            }
+        }
+        
+        /* Excel Form Submission */
+        .excel-submit {
+            background: rgba(57, 255, 20, 0.1);
+            border: 1px dashed var(--accent-green);
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 20px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Custom Cursor Elements -->
+    <div class="cursor"></div>
+    <div class="neon-circle"></div>
+    
+    <!-- Header -->
+    <header id="header">
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">Geniusphere</a>
+                
+                <div class="nav-links">
+                    <a href="#about">About</a>
+                    <a href="#tracks">Tracks</a>
+                    <a href="#team">Team</a>
+                    <a href="#sessions">Sessions</a>
+                    <a href="#blog">Blog</a>
+                    <a href="#contact">Contact</a>
+                </div>
+                
+                <button class="cta-button">Join Us</button>
+                
+                <button class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Inspiring Futures and Igniting Passions</h1>
+                <p>Empowering students with cutting-edge knowledge in technology, finance, and innovation to shape the leaders of tomorrow.</p>
+                <div class="button-group">
+                    <a href="#demo" class="cta-button">Book a Demo</a>
+                    <a href="#tracks" class="cta-button secondary">Explore Tracks</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Tech Animation Background -->
+        <div class="tech-animation">
+            <div class="tech-item" style="left: 10%; animation-delay: 0s;">
+                <i class="fab fa-bitcoin"></i>
+            </div>
+            <div class="tech-item" style="left: 25%; animation-delay: 2s;">
+                <i class="fas fa-robot"></i>
+            </div>
+            <div class="tech-item" style="left: 40%; animation-delay: 4s;">
+                <i class="fas fa-chart-pie"></i>
+            </div>
+            <div class="tech-item" style="left: 55%; animation-delay: 6s;">
+                <i class="fas fa-code"></i>
+            </div>
+            <div class="tech-item" style="left: 70%; animation-delay: 8s;">
+                <i class="fas fa-cloud"></i>
+            </div>
+            <div class="tech-item" style="left: 85%; animation-delay: 10s;">
+                <i class="fas fa-brain"></i>
+            </div>
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section class="section" id="about">
+        <div class="container">
+            <h2 class="section-title">Why <span>Geniusphere</span></h2>
+            
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>Expert-Led Sessions</h3>
+                    <p>Learn from industry professionals with real-world experience in tech and finance.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3>Hands-On Learning</h3>
+                    <p>Practical workshops and projects to apply what you learn immediately.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Future-Focused</h3>
+                    <p>Curriculum designed around emerging technologies and market trends.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Community Building</h3>
+                    <p>Connect with like-minded peers and build your professional network.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="container">
+            <div class="stats">
+                <div class="stats-container">
+                    <div class="stat-item">
+                        <div class="stat-number" data-count="50">0</div>
+                        <div class="stat-label">Schools Reached</div>
+                    </div>
+                    
+                    <div class="stat-item">
+                        <div class="stat-number" data-count="5000">0</div>
+                        <div class="stat-label">Students Impacted</div>
+                    </div>
+                    
+                    <div class="stat-item">
+                        <div class="stat-number" data-count="100">0</div>
+                        <div class="stat-label">Workshops Conducted</div>
+                    </div>
+                    
+                    <div class="stat-item">
+                        <div class="stat-number" data-count="20">0</div>
+                        <div class="stat-label">Industry Experts</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Tracks Section -->
+    <section class="section tracks-section" id="tracks">
+        <div class="container">
+            <h2 class="section-title">Our <span>Learning Tracks</span></h2>
+            
+            <div class="tracks">
+                <div class="track-card-container">
+                    <div class="track-card">
+                        <div class="track-front">
+                            <div class="track-icon">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <h3>AI & Robotics</h3>
+                            <p>Explore the fascinating world of artificial intelligence and robotics.</p>
+                            <ul class="track-topics">
+                                <li>Machine Learning Basics</li>
+                                <li>Neural Networks</li>
+                                <li>Robotics Programming</li>
+                                <li>Computer Vision</li>
+                            </ul>
+                            <div class="flip-button">
+                                <i class="fas fa-sync-alt"></i>
+                            </div>
+                        </div>
+                        <div class="track-back">
+                            <h3>Why Learn AI?</h3>
+                            <ul class="track-benefits">
+                                <li>Prepare for future job markets</li>
+                                <li>Develop problem-solving skills</li>
+                                <li>Understand technology shaping our world</li>
+                                <li>Create innovative projects</li>
+                            </ul>
+                            <div class="flip-button">
+                                <i class="fas fa-sync-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="track-card-container">
+                    <div class="track-card">
+                        <div class="track-front">
+                            <div class="track-icon">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <h3>Web Development</h3>
+                            <p>Build interactive websites and web applications from scratch.</p>
+                            <ul class="track-topics">
+                                <li>HTML5 & CSS3</li>
+                                <li>JavaScript Fundamentals</li>
+                                <li>React Framework</li>
+                                <li>Backend Basics</li>
+                            </ul>
+                            <div class="flip-button">
+                                <i class="fas fa-sync-alt"></i>
+                            </div>
+                        </div>
+                        <div class="track-back">
+                            <h3>Why Learn Web Dev?</h3>
+                            <ul class="track-benefits">
+                                <li>High demand in job market</li>
+                                <li>Create your own websites</li>
+                                <li>Freelance opportunities</li>
+                                <li>Foundation for app development</li>
+                            </ul>
+                            <div class="flip-button">
+                                <i class="fas fa-sync-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="track-card-container">
+                    <div class="track-card">
+                        <div class="track-front">
+                            <div class="track-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h3>Financial Literacy</h3>
+                            <p>Master the fundamentals of personal finance and investing.</p>
+                            <ul class="track-topics">
+                                <li>Budgeting & Saving</li>
+                                <li>Stock Market Basics</li>
+                                <li>Crypto & Blockchain</li>
+                                <li>Financial Planning</li>
+                            </ul>
+                            <div class="flip-button">
+                                <i class="fas fa-sync-alt"></i>
+                            </div>
+                        </div>
+                        <div class="track-back">
+                            <h3>Why Learn Finance?</h3>
+                            <ul class="track-benefits">
+                                <li>Make informed money decisions</li>
+                                <li>Start investing early</li>
+                                <li>Avoid financial pitfalls</li>
+                                <li>Build wealth over time</li>
+                            </ul>
+                            <div class="flip-button">
+                                <i class="fas fa-sync-alt"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Testimonials Section -->
+    <section class="section testimonials">
+        <div class="container">
+            <h2 class="section-title">What <span>Students Say</span></h2>
+            
+            <div class="testimonial-marquee">
+                <div class="testimonial-track">
+                    <div class="testimonial-card">
+                        <div class="testimonial-header">
+                            <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Student" class="testimonial-photo">
+                            <div class="testimonial-author-info">
+                                <div class="testimonial-author">Priya Sharma</div>
+                                <div class="testimonial-role">Grade 11, Delhi Public School</div>
+                            </div>
+                        </div>
+                        <div class="testimonial-text">
+                            The AI workshop completely changed my perspective on technology. I built my first chatbot and now I'm considering a career in computer science!
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <div class="testimonial-header">
+                            <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Student" class="testimonial-photo">
+                            <div class="testimonial-author-info">
+                                <div class="testimonial-author">Rahul Patel</div>
+                                <div class="testimonial-role">Grade 10, Mumbai International</div>
+                            </div>
+                        </div>
+                        <div class="testimonial-text">
+                            I never thought finance could be this interesting! The stock market simulation game was so much fun and I learned so much about investing.
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <div class="testimonial-header">
+                            <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Student" class="testimonial-photo">
+                            <div class="testimonial-author-info">
+                                <div class="testimonial-author">Ananya Gupta</div>
+                                <div class="testimonial-role">Grade 12, Bangalore High</div>
+                            </div>
+                        </div>
+                        <div class="testimonial-text">
+                            The web development track helped me build my portfolio website. I've already started getting freelance projects thanks to what I learned!
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <div class="testimonial-header">
+                            <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Student" class="testimonial-photo">
+                            <div class="testimonial-author-info">
+                                <div class="testimonial-author">Arjun Singh</div>
+                                <div class="testimonial-role">Grade 9, Chennai Academy</div>
+                            </div>
+                        </div>
+                        <div class="testimonial-text">
+                            Robotics was always my passion but I didn't know where to start. The hands-on sessions with actual robots were amazing!
+                        </div>
+                    </div>
+                    
+                    <!-- Duplicate for seamless looping -->
+                    <div class="testimonial-card">
+                        <div class="testimonial-header">
+                            <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Student" class="testimonial-photo">
+                            <div class="testimonial-author-info">
+                                <div class="testimonial-author">Priya Sharma</div>
+                                <div class="testimonial-role">Grade 11, Delhi Public School</div>
+                            </div>
+                        </div>
+                        <div class="testimonial-text">
+                            The AI workshop completely changed my perspective on technology. I built my first chatbot and now I'm considering a career in computer science!
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- School Sessions Carousel -->
+    <section class="section" id="sessions">
+        <div class="container">
+            <h2 class="section-title">Our <span>School Sessions</span></h2>
+            
+            <div class="sessions-carousel">
+                <div class="swiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide" style="background-image: url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');">
+                            <div class="slide-content">
+                                <div class="school-name">Delhi Public School</div>
+                                <div class="session-date">March 15, 2023 - AI Workshop</div>
+                                <p>Interactive session on machine learning with 120 students participating</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide" style="background-image: url('https://images.unsplash.com/photo-1588072432836-e10032774350?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1472&q=80');">
+                            <div class="slide-content">
+                                <div class="school-name">Mumbai International</div>
+                                <div class="session-date">April 5, 2023 - Financial Literacy</div>
+                                <p>Week-long program covering personal finance and investing basics</p>
+                            </div>
+                        </div>
+                        <div class="swiper-slide" style="background-image: url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80');">
+                            <div class="slide-content">
+                                <div class="school-name">Bangalore High</div>
+                                <div class="session-date">May 20, 2023 - Web Development</div>
+                                <p>Hands-on coding workshop building real websites</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Team Section -->
+    <section class="section" id="team">
+        <div class="container">
+            <h2 class="section-title">Meet Our <span>Team</span></h2>
+            
+            <div class="team-grid">
+                <div class="team-card">
+                    <img src="https://randomuser.me/api/portraits/women/43.jpg" alt="Team Member" class="team-photo">
+                    <h3>Dr. Anjali Mehta</h3>
+                    <div class="team-role">AI Specialist</div>
+                    <div class="team-bio">PhD in Computer Science with 10+ years in machine learning research and education.</div>
+                </div>
+                
+                <div class="team-card">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Team Member" class="team-photo">
+                    <h3>Rahul Verma</h3>
+                    <div class="team-role">Web Developer</div>
+                    <div class="team-bio">Full-stack developer with experience at top tech companies, passionate about teaching.</div>
+                </div>
+                
+                <div class="team-card">
+                    <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Team Member" class="team-photo">
+                    <h3>Priya Iyer</h3>
+                    <div class="team-role">Finance Expert</div>
+                    <div class="team-bio">Former investment banker now dedicated to financial education for youth.</div>
+                </div>
+                
+                <div class="team-card">
+                    <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Team Member" class="team-photo">
+                    <h3>Arjun Kapoor</h3>
+                    <div class="team-role">Robotics Engineer</div>
+                    <div class="team-bio">Built award-winning robots and loves inspiring the next generation of engineers.</div>
+                </div>
+                
+                <div class="team-card">
+                    <img src="https://randomuser.me/api/portraits/women/28.jpg" alt="Team Member" class="team-photo">
+                    <h3>Neha Sharma</h3>
+                    <div class="team-role">Curriculum Designer</div>
+                    <div class="team-bio">Specializes in creating engaging, age-appropriate tech education programs.</div>
+                </div>
+                
+                <div class="team-card">
+                    <img src="https://randomuser.me/api/portraits/men/52.jpg" alt="Team Member" class="team-photo">
+                    <h3>Vikram Singh</h3>
+                    <div class="team-role">Operations Lead</div>
+                    <div class="team-bio">Ensures all our programs run smoothly across schools nationwide.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Blog Section -->
+    <section class="section blog-section" id="blog">
+        <div class="container">
+            <h2 class="section-title">Latest <span>Blog Posts</span></h2>
+            
+            <div class="blog-grid">
+                <div class="blog-card">
+                    <div class="blog-image">
+                        <img src="https://images.unsplash.com/photo-1677442135136-760c813a743d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="AI Future">
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-category">Technology</span>
+                        <h3 class="blog-title">How AI is Changing the Future of Work</h3>
+                        <p class="blog-excerpt">Explore the emerging AI technologies that will shape career opportunities for today's students.</p>
+                        <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <div class="blog-card">
+                    <div class="blog-image">
+                        <img src="https://images.unsplash.com/photo-1621761191319-c6fb62004040?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1587&q=80" alt="Investing">
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-category">Finance</span>
+                        <h3 class="blog-title">Investing Basics for Teens</h3>
+                        <p class="blog-excerpt">Why starting early with investing can lead to financial freedom and how to begin with small amounts.</p>
+                        <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <div class="blog-card">
+                    <div class="blog-image">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Coding">
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-category">Technology</span>
+                        <h3 class="blog-title">Coding Projects for Beginners</h3>
+                        <p class="blog-excerpt">Fun and engaging coding projects to build your skills and portfolio as a beginner programmer.</p>
+                        <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="text-align: center; margin-top: 40px;">
+                <a href="#" class="cta-button">View All Blog Posts</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Exploration Pages Section -->
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Explore <span>More</span></h2>
+            
+            <div class="explore-grid">
+                <div class="explore-card">
+                    <div class="explore-icon">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <h3>Video Library</h3>
+                    <p>Access our collection of tutorial videos and recorded workshops.</p>
+                    <a href="#" class="read-more">Explore Videos</a>
+                </div>
+                
+                <div class="explore-card">
+                    <div class="explore-icon">
+                        <i class="fas fa-project-diagram"></i>
+                    </div>
+                    <h3>Student Projects</h3>
+                    <p>See what other students have created through our programs.</p>
+                    <a href="#" class="read-more">View Projects</a>
+                </div>
+                
+                <div class="explore-card">
+                    <div class="explore-icon">
+                        <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <h3>Event Calendar</h3>
+                    <p>Check upcoming workshops and events at schools near you.</p>
+                    <a href="#" class="read-more">View Calendar</a>
+                </div>
+                
+                <div class="explore-card">
+                    <div class="explore-icon">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <h3>FAQ</h3>
+                    <p>Find answers to common questions about our programs.</p>
+                    <a href="#" class="read-more">Read FAQ</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Demo Booking Section -->
+    <section class="section demo-booking" id="demo">
+        <div class="container">
+            <h2 class="section-title">Book a <span>Demo Session</span></h2>
+            
+            <div class="booking-form">
+                <form id="demoForm">
+                    <div class="form-group">
+                        <label for="schoolName">School Name</label>
+                        <input type="text" id="schoolName" name="schoolName" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="contactPerson">Contact Person</label>
+                        <input type="text" id="contactPerson" name="contactPerson" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="students">Approx. Number of Students</label>
+                        <input type="number" id="students" name="students" min="10">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="interest">Primary Interest</label>
+                        <select id="interest" name="interest">
+                            <option value="ai">AI & Robotics</option>
+                            <option value="web">Web Development</option>
+                            <option value="finance">Financial Literacy</option>
+                            <option value="all">All Tracks</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Additional Information</label>
+                        <textarea id="message" name="message" rows="4"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="cta-button">Submit Request</button>
+                    <div class="excel-submit">Data will be saved to our Excel database</div>
+                </form>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Location Section -->
+    <section class="section location-section" id="location">
+        <div class="container">
+            <h2 class="section-title">Our <span>Location</span></h2>
+            
+            <div class="location-container">
+                <div class="location-image">
+                    <img src="https://images.unsplash.com/photo-1587474260584-136574528ed5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Our Office">
+                </div>
+                
+                <div class="location-info">
+                    <h3>Visit Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Tech Park, Innovation Road, Bangalore - 560001</p>
+                    <p><i class="fas fa-phone"></i> +91 9876543210</p>
+                    <p><i class="fas fa-envelope"></i> info@geniusphere.com</p>
+                    <p><i class="fas fa-clock"></i> Monday to Friday: 9AM - 6PM</p>
+                    
+                    <div style="margin-top: 30px;">
+                        <a href="#" class="cta-button secondary">Get Directions</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section class="section" id="contact">
+        <div class="container">
+            <h2 class="section-title">Get in <span>Touch</span></h2>
+            
+            <div class="contact-container">
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Your Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contactEmail">Email</label>
+                            <input type="email" id="contactEmail" name="contactEmail" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contactPhone">Phone (Optional)</label>
+                            <input type="tel" id="contactPhone" name="contactPhone">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="contactMessage">Message</label>
+                            <textarea id="contactMessage" name="contactMessage" rows="5" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="cta-button">Send Message</button>
+                        <div class="excel-submit">Message will be saved to our Excel database</div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <a href="#" class="logo">Geniusphere</a>
+                    <p>Empowering the next generation of tech and finance leaders.</p>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Quick Links</h4>
+                        <ul>
+                            <li><a href="#about">About Us</a></li>
+                            <li><a href="#tracks">Learning Tracks</a></li>
+                            <li><a href="#team">Our Team</a></li>
+                            <li><a href="#blog">Blog</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>Resources</h4>
+                        <ul>
+                            <li><a href="#">Video Library</a></li>
+                            <li><a href="#">Student Projects</a></li>
+                            <li><a href="#">Event Calendar</a></li>
+                            <li><a href="#">FAQ</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-column">
+                        <h4>Contact</h4>
+                        <ul>
+                            <li><i class="fas fa-map-marker-alt"></i> Bangalore, India</li>
+                            <li><i class="fas fa-phone"></i> +91 9876543210</li>
+                            <li><i class="fas fa-envelope"></i> info@geniusphere.com</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="social-links">
+                <a href="#" class="twitter"><i class="fab fa-x-twitter"></i></a>
+                <a href="#" class="threads"><i class="fab fa-threads"></i></a>
+                <a href="#" class="instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="linkedin"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="youtube"><i class="fab fa-youtube"></i></a>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2023 Geniusphere. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.classList.toggle('active');
+        });
+
+        // Track Card Flip
+        const trackCards = document.querySelectorAll('.track-card');
+        trackCards.forEach(card => {
+            const flipButton = card.querySelector('.flip-button');
+            flipButton.addEventListener('click', () => {
+                card.classList.toggle('flipped');
+            });
+        });
+
+        // Testimonial Marquee
+        const testimonialTrack = document.querySelector('.testimonial-track');
+        let testimonialPosition = 0;
+        
+        function animateTestimonials() {
+            testimonialPosition -= 1;
+            if (testimonialPosition < -testimonialTrack.scrollWidth / 2) {
+                testimonialPosition = 0;
+            }
+            testimonialTrack.style.transform = `translateX(${testimonialPosition}px)`;
+            requestAnimationFrame(animateTestimonials);
+        }
+        animateTestimonials();
+
+        // Stats Counter Animation
+        const statNumbers = document.querySelectorAll('.stat-number');
+        statNumbers.forEach(stat => {
+            const target = +stat.getAttribute('data-count');
+            const increment = target / 100;
+            let current = 0;
+            
+            const updateNumber = () => {
+                current += increment;
+                if (current < target) {
+                    stat.textContent = Math.floor(current);
+                    setTimeout(updateNumber, 20);
+                } else {
+                    stat.textContent = target;
+                }
+            };
+            updateNumber();
+        });
+
+        // Cursor Animation
+        const cursor = document.querySelector('.cursor');
+        const neonCircle = document.querySelector('.neon-circle');
+        
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            neonCircle.style.left = e.clientX + 'px';
+            neonCircle.style.top = e.clientY + 'px';
+        });
+        
+        document.querySelectorAll('a, button, .track-card, .team-card, .blog-card').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                neonCircle.classList.add('grow');
+            });
+            el.addEventListener('mouseleave', () => {
+                neonCircle.classList.remove('grow');
+            });
+        });
+
+        // Initialize Swiper for Sessions Carousel
+        const swiper = new Swiper('.swiper', {
+            loop: true,
+            autoplay: {
+                delay: 5000,
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+        });
+
+        // Form Submissions to Excel Simulation
+        document.getElementById('demoForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Demo request received! We will contact you soon.');
+            this.reset();
+        });
+        
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Message sent successfully! We will get back to you soon.');
+            this.reset();
+        });
+
+        // Navigation Link Animations
+        const navItems = document.querySelectorAll('.nav-links a');
+        navItems.forEach((item, index) => {
+            item.style.animationDelay = `${index * 0.1}s`;
+            item.classList.add('nav-link-animate');
+        });
+    </script>
+</body>
+</html>
