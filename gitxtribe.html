@@ -13,6 +13,8 @@
             --primary-bg: #0A1E3F;
             --accent-blue: #00BFFF;
             --accent-green: #39FF14;
+            --accent-purple: #9D50FF;
+            --accent-pink: #FF4D9D;
             --text-light: #F5F5F5;
             --text-muted: #B0B0B0;
             --card-bg: rgba(255, 255, 255, 0.05);
@@ -496,109 +498,12 @@
             color: var(--text-muted);
         }
         
-        /* Course Categories Section - Enhanced with Rotating Highlights */
-        .course-highlights {
-            background: rgba(57, 255, 20, 0.05);
-            border-radius: 20px;
-            padding: 40px;
-            margin: 40px 0;
-            border: 1px solid rgba(57, 255, 20, 0.2);
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .course-highlights::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, transparent 65%, rgba(0, 191, 255, 0.05) 100%);
-            z-index: -1;
-        }
-        
-        .highlight-title {
-            text-align: center;
-            font-size: 1.8rem;
-            margin-bottom: 30px;
-            color: var(--accent-green);
-        }
-        
-        .highlight-slider {
-            display: flex;
-            overflow: hidden;
-            position: relative;
-            height: 200px;
-        }
-        
-        .highlight-slide {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            opacity: 0;
-            transition: opacity 1s ease, transform 1s ease;
-            transform: translateX(100%);
-        }
-        
-        .highlight-slide.active {
-            opacity: 1;
-            transform: translateX(0);
-        }
-        
-        .highlight-slide.prev {
-            transform: translateX(-100%);
-        }
-        
-        .highlight-icon {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            color: var(--accent-blue);
-        }
-        
-        .highlight-text {
-            font-size: 1.2rem;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-        
-        .highlight-benefit {
-            font-weight: 600;
-            color: var(--accent-green);
-            margin-top: 10px;
-            font-size: 1.1rem;
-        }
-        
-        .highlight-nav {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 30px;
-        }
-        
-        .highlight-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.2);
-            cursor: pointer;
-            transition: var(--transition);
-        }
-        
-        .highlight-dot.active {
-            background: var(--accent-green);
-            transform: scale(1.2);
-        }
-        
+        /* Course Categories Section - Enhanced with Flip Cards */
         .course-categories {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
+            perspective: 1000px;
         }
         
         .course-category {
@@ -609,6 +514,10 @@
             transition: var(--transition);
             transform: translateY(50px);
             opacity: 0;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.8s ease, opacity 0.6s ease;
+            min-height: 400px;
         }
         
         .course-category.in-view {
@@ -617,9 +526,30 @@
         }
         
         .course-category:hover {
-            transform: translateY(-10px);
             box-shadow: 0 15px 30px rgba(0, 191, 255, 0.2);
             border-color: var(--accent-blue);
+        }
+        
+        .course-category.flipped {
+            transform: rotateY(180deg);
+        }
+        
+        .course-category-front,
+        .course-category-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            padding: 30px;
+            top: 0;
+            left: 0;
+        }
+        
+        .course-category-back {
+            transform: rotateY(180deg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
         
         .category-icon {
@@ -659,6 +589,158 @@
             position: absolute;
             left: 0;
             color: var(--accent-green);
+        }
+        
+        .course-features {
+            list-style-type: none;
+            margin-top: 20px;
+        }
+        
+        .course-features li {
+            margin-bottom: 15px;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .course-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent-green);
+            font-weight: bold;
+        }
+        
+        .flip-button {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .flip-button:hover {
+            background: var(--accent-blue);
+            transform: rotate(180deg);
+        }
+        
+        /* Events Marquee Section */
+        .events-marquee {
+            padding: 80px 0;
+            background: rgba(57, 255, 20, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .events-marquee::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-bg) 0%, rgba(10, 30, 63, 0) 15%, rgba(10, 30, 63, 0) 85%, var(--primary-bg) 100%);
+            z-index: 2;
+            pointer-events: none;
+        }
+        
+        .events-marquee h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+        }
+        
+        .events-marquee h2 span {
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-green));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .events-track {
+            display: flex;
+            gap: 30px;
+            animation: scroll 30s linear infinite;
+            width: calc(300px * 10);
+        }
+        
+        .event-card {
+            width: 280px;
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            flex-shrink: 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+        }
+        
+        .event-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 191, 255, 0.3);
+            border-color: var(--accent-blue);
+        }
+        
+        .event-image {
+            height: 160px;
+            overflow: hidden;
+        }
+        
+        .event-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .event-card:hover .event-image img {
+            transform: scale(1.1);
+        }
+        
+        .event-content {
+            padding: 20px;
+        }
+        
+        .event-date {
+            color: var(--accent-blue);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .event-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .event-description {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+        }
+        
+        .event-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--accent-green);
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+        
+        .event-link:hover {
+            color: var(--accent-blue);
+            transform: translateX(5px);
         }
         
         /* Team Members Section - Marquee Style */
@@ -777,7 +859,14 @@
         .schools-marquee h2 {
             text-align: center;
             margin-bottom: 40px;
-            font-size: 2rem;
+            font-size: 2.5rem;
+        }
+        
+        .schools-marquee h2 span {
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-green));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
         
         .schools-track {
@@ -918,140 +1007,7 @@
             padding: 30px;
         }
         
-        /* Contact Section */
-        .contact-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 50px;
-        }
-        
-        .contact-info {
-            display: grid;
-            gap: 20px;
-        }
-        
-        .contact-card {
-            background: var(--card-bg);
-            border-radius: 10px;
-            padding: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: var(--transition);
-        }
-        
-        .contact-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent-green);
-        }
-        
-        .contact-card h3 {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 10px;
-            color: var(--accent-blue);
-        }
-        
-        .contact-card a {
-            transition: var(--transition);
-        }
-        
-        .contact-card a:hover {
-            color: var(--accent-green);
-        }
-        
-        .contact-form {
-            background: var(--card-bg);
-            border-radius: 15px;
-            padding: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
-        
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 12px 15px;
-            border-radius: 8px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--text-light);
-            transition: var(--transition);
-        }
-        
-        .form-group textarea {
-            min-height: 120px;
-            resize: vertical;
-        }
-        
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--accent-blue);
-            box-shadow: 0 0 10px rgba(0, 191, 255, 0.2);
-        }
-        
-        /* FAQ Styles */
-        .faq-container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .faq-item {
-            background: var(--card-bg);
-            border-radius: 10px;
-            margin-bottom: 15px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            overflow: hidden;
-            transition: var(--transition);
-        }
-        
-        .faq-item:hover {
-            border-color: var(--accent-blue);
-        }
-        
-        .faq-question {
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-        }
-        
-        .faq-question h3 {
-            font-size: 1.1rem;
-            margin: 0;
-        }
-        
-        .faq-question i {
-            transition: transform 0.3s ease;
-        }
-        
-        .faq-item.active .faq-question i {
-            transform: rotate(180deg);
-        }
-        
-        .faq-answer {
-            padding: 0 20px;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease, padding 0.3s ease;
-        }
-        
-        .faq-item.active .faq-answer {
-            padding: 0 20px 20px;
-            max-height: 200px;
-        }
-        
-        /* Student Projects Styles */
+        /* Student Projects Section */
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -1140,6 +1096,121 @@
             transform: translateX(5px);
         }
         
+        /* Contact Section */
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 50px;
+        }
+        
+        .contact-info {
+            display: grid;
+            gap: 20px;
+        }
+        
+        .contact-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-green);
+        }
+        
+        .contact-card h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            color: var(--accent-blue);
+        }
+        
+        .contact-card a {
+            transition: var(--transition);
+        }
+        
+        .contact-card a:hover {
+            color: var(--accent-green);
+        }
+        
+        .contact-form {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-light);
+            transition: var(--transition);
+        }
+        
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 10px rgba(0, 191, 255, 0.2);
+        }
+        
+        /* Enhanced Bubble Animation */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+        }
+        
+        .bg-bubble {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(40px);
+            opacity: 0.15;
+            animation: floatBubble 15s infinite ease-in-out;
+            transform: translateY(0) rotate(0deg);
+        }
+        
+        @keyframes floatBubble {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0.1;
+            }
+            50% {
+                opacity: 0.2;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
         /* Animations */
         @keyframes fadeInUp {
             from {
@@ -1201,7 +1272,8 @@
                 display: none;
             }
             
-            .schools-track {
+            .schools-track,
+            .events-track {
                 animation: scroll 60s linear infinite;
             }
             
@@ -1209,12 +1281,12 @@
                 grid-template-columns: 1fr;
             }
             
-            .highlight-slider {
-                height: 300px;
-            }
-            
             .team-track {
                 animation: scroll 80s linear infinite;
+            }
+            
+            .course-category {
+                min-height: 350px;
             }
         }
         
@@ -1260,6 +1332,9 @@
     <!-- Custom Cursor -->
     <div class="cursor"></div>
 
+    <!-- Background Animation -->
+    <div class="bg-animation" id="bgAnimation"></div>
+
     <!-- Floating Particles -->
     <div class="particles" id="particles-js"></div>
 
@@ -1272,9 +1347,9 @@
                 <div class="nav-links">
                     <a href="#why">Why Geniusphere</a>
                     <a href="#courses">Courses</a>
+                    <a href="#events">Events</a>
                     <a href="#team">Our Team</a>
                     <a href="#schools">Schools</a>
-                    <a href="#video-faq">Video Library</a>
                     <a href="#student-projects">Projects</a>
                     <a href="#contact">Contact</a>
                 </div>
@@ -1369,85 +1444,219 @@
         <div class="container">
             <h2 class="section-title">Our <span>Course Categories</span></h2>
             
-            <!-- Course Highlights Slider -->
-            <div class="course-highlights">
-                <h3 class="highlight-title">Why Our Courses Stand Out</h3>
-                <div class="highlight-slider">
-                    <div class="highlight-slide active">
-                        <div class="highlight-icon"><i class="fas fa-graduation-cap"></i></div>
-                        <div class="highlight-text">Our courses are designed by students who understand exactly what engages young minds and makes learning stick.</div>
-                        <div class="highlight-benefit">Benefit: Higher engagement and retention rates</div>
-                    </div>
-                    <div class="highlight-slide">
-                        <div class="highlight-icon"><i class="fas fa-laptop-code"></i></div>
-                        <div class="highlight-text">We focus on practical, hands-on learning with real-world applications that go beyond textbook theory.</div>
-                        <div class="highlight-benefit">Benefit: Immediately applicable skills</div>
-                    </div>
-                    <div class="highlight-slide">
-                        <div class="highlight-icon"><i class="fas fa-chart-line"></i></div>
-                        <div class="highlight-text">Each course includes projects that students can showcase in portfolios for college applications or internships.</div>
-                        <div class="highlight-benefit">Benefit: Tangible outcomes for future opportunities</div>
-                    </div>
-                    <div class="highlight-slide">
-                        <div class="highlight-icon"><i class="fas fa-users"></i></div>
-                        <div class="highlight-text">Small group sessions ensure personalized attention and foster meaningful peer connections.</div>
-                        <div class="highlight-benefit">Benefit: Customized learning experience</div>
-                    </div>
-                </div>
-                <div class="highlight-nav">
-                    <div class="highlight-dot active" data-slide="0"></div>
-                    <div class="highlight-dot" data-slide="1"></div>
-                    <div class="highlight-dot" data-slide="2"></div>
-                    <div class="highlight-dot" data-slide="3"></div>
-                </div>
-            </div>
-            
             <div class="course-categories">
                 <!-- Tech Category -->
                 <div class="course-category" data-category="tech">
-                    <div class="category-icon">
-                        <i class="fas fa-laptop-code"></i>
+                    <div class="course-category-front">
+                        <div class="category-icon">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <h3>💻 Technology</h3>
+                        <ul class="course-list">
+                            <li>Microsoft Tools</li>
+                            <li>Internet of Things (IoT)</li>
+                            <li>Cybersecurity Basics</li>
+                            <li>Coding Basics</li>
+                            <li>Blockchain</li>
+                            <li>Artificial Intelligence (AI)</li>
+                        </ul>
+                        <button class="flip-button">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
                     </div>
-                    <h3>💻 Technology</h3>
-                    <ul class="course-list">
-                        <li>Microsoft Tools</li>
-                        <li>Internet of Things (IoT)</li>
-                        <li>Cybersecurity Basics</li>
-                        <li>Coding Basics</li>
-                        <li>Blockchain</li>
-                        <li>Artificial Intelligence (AI)</li>
-                    </ul>
+                    <div class="course-category-back">
+                        <h3>💻 Technology Features</h3>
+                        <ul class="course-features">
+                            <li>Hands-on coding exercises</li>
+                            <li>Real-world project development</li>
+                            <li>Industry expert guest lectures</li>
+                            <li>Portfolio-building opportunities</li>
+                            <li>Weekly coding challenges</li>
+                        </ul>
+                        <button class="flip-button">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                    </div>
                 </div>
                 
                 <!-- Finance Category -->
                 <div class="course-category" data-category="finance">
-                    <div class="category-icon">
-                        <i class="fas fa-chart-line"></i>
+                    <div class="course-category-front">
+                        <div class="category-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>💰 Finance</h3>
+                        <ul class="course-list">
+                            <li>Introduction to Finance</li>
+                            <li>Stock Market Basics</li>
+                            <li>Cryptocurrency Market</li>
+                            <li>Fintech</li>
+                            <li>Types of Bank Accounts</li>
+                            <li>Global Economy</li>
+                        </ul>
+                        <button class="flip-button">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
                     </div>
-                    <h3>💰 Finance</h3>
-                    <ul class="course-list">
-                        <li>Introduction to Finance</li>
-                        <li>Stock Market Basics</li>
-                        <li>Cryptocurrency Market</li>
-                        <li>Fintech</li>
-                        <li>Types of Bank Accounts</li>
-                        <li>Global Economy</li>
-                    </ul>
+                    <div class="course-category-back">
+                        <h3>💰 Finance Features</h3>
+                        <ul class="course-features">
+                            <li>Virtual stock trading simulation</li>
+                            <li>Personal finance management tools</li>
+                            <li>Case studies from real markets</li>
+                            <li>Investment strategy workshops</li>
+                            <li>Guest speakers from finance industry</li>
+                        </ul>
+                        <button class="flip-button">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                    </div>
                 </div>
                 
                 <!-- Professional Skills Category -->
                 <div class="course-category" data-category="skills">
-                    <div class="category-icon">
-                        <i class="fas fa-brain"></i>
+                    <div class="course-category-front">
+                        <div class="category-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h3>🧠 Professional Skills</h3>
+                        <ul class="course-list">
+                            <li>Time Management</li>
+                            <li>Social Profile Development</li>
+                            <li>Communication Skills</li>
+                            <li>Soft Skills</li>
+                            <li>Startup Ideation</li>
+                        </ul>
+                        <button class="flip-button">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
                     </div>
-                    <h3>🧠 Professional Skills</h3>
-                    <ul class="course-list">
-                        <li>Time Management</li>
-                        <li>Social Profile Development</li>
-                        <li>Communication Skills</li>
-                        <li>Soft Skills</li>
-                        <li>Startup Ideation</li>
-                    </ul>
+                    <div class="course-category-back">
+                        <h3>🧠 Professional Skills Features</h3>
+                        <ul class="course-features">
+                            <li>Interactive role-playing exercises</li>
+                            <li>Resume and LinkedIn profile reviews</li>
+                            <li>Mock interviews with feedback</li>
+                            <li>Time management challenges</li>
+                            <li>Networking event participation</li>
+                        </ul>
+                        <button class="flip-button">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Marquee Section -->
+    <section class="section events-marquee" id="events">
+        <div class="container">
+            <h2>Upcoming <span>Events & Workshops</span></h2>
+            
+            <div class="events-track">
+                <!-- Event 1 -->
+                <div class="event-card">
+                    <div class="event-image">
+                        <img src="https://images.unsplash.com/photo-1544396821-4dd40b938ad3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1473&q=80" alt="AI Workshop">
+                    </div>
+                    <div class="event-content">
+                        <div class="event-date">
+                            <i class="far fa-calendar-alt"></i> June 15, 2023
+                        </div>
+                        <h3 class="event-title">AI & Robotics Workshop</h3>
+                        <p class="event-description">Hands-on session building your first AI model and programming a simple robot.</p>
+                        <a href="#" class="event-link">Register Now <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Event 2 -->
+                <div class="event-card">
+                    <div class="event-image">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Stock Market">
+                    </div>
+                    <div class="event-content">
+                        <div class="event-date">
+                            <i class="far fa-calendar-alt"></i> June 22, 2023
+                        </div>
+                        <h3 class="event-title">Stock Market Simulation</h3>
+                        <p class="event-description">Compete with peers in our virtual trading platform with real market data.</p>
+                        <a href="#" class="event-link">Register Now <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Event 3 -->
+                <div class="event-card">
+                    <div class="event-image">
+                        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80" alt="Coding Bootcamp">
+                    </div>
+                    <div class="event-content">
+                        <div class="event-date">
+                            <i class="far fa-calendar-alt"></i> July 5-7, 2023
+                        </div>
+                        <h3 class="event-title">3-Day Coding Bootcamp</h3>
+                        <p class="event-description">Build your first website or app with guidance from our expert instructors.</p>
+                        <a href="#" class="event-link">Register Now <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Event 4 -->
+                <div class="event-card">
+                    <div class="event-image">
+                        <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80" alt="Startup Pitch">
+                    </div>
+                    <div class="event-content">
+                        <div class="event-date">
+                            <i class="far fa-calendar-alt"></i> July 15, 2023
+                        </div>
+                        <h3 class="event-title">Startup Pitch Competition</h3>
+                        <p class="event-description">Pitch your business idea to a panel of entrepreneurs and investors.</p>
+                        <a href="#" class="event-link">Register Now <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Event 5 -->
+                <div class="event-card">
+                    <div class="event-image">
+                        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1471&q=80" alt="Career Fair">
+                    </div>
+                    <div class="event-content">
+                        <div class="event-date">
+                            <i class="far fa-calendar-alt"></i> August 10, 2023
+                        </div>
+                        <h3 class="event-title">Tech Career Fair</h3>
+                        <p class="event-description">Connect with tech companies and learn about internship opportunities.</p>
+                        <a href="#" class="event-link">Register Now <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Duplicates for seamless looping -->
+                <div class="event-card">
+                    <div class="event-image">
+                        <img src="https://images.unsplash.com/photo-1544396821-4dd40b938ad3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1473&q=80" alt="AI Workshop">
+                    </div>
+                    <div class="event-content">
+                        <div class="event-date">
+                            <i class="far fa-calendar-alt"></i> June 15, 2023
+                        </div>
+                        <h3 class="event-title">AI & Robotics Workshop</h3>
+                        <p class="event-description">Hands-on session building your first AI model and programming a simple robot.</p>
+                        <a href="#" class="event-link">Register Now <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <div class="event-card">
+                    <div class="event-image">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Stock Market">
+                    </div>
+                    <div class="event-content">
+                        <div class="event-date">
+                            <i class="far fa-calendar-alt"></i> June 22, 2023
+                        </div>
+                        <h3 class="event-title">Stock Market Simulation</h3>
+                        <p class="event-description">Compete with peers in our virtual trading platform with real market data.</p>
+                        <a href="#" class="event-link">Register Now <i class="fas fa-arrow-right"></i></a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1688,55 +1897,6 @@
         </div>
     </div>
 
-    <!-- Video Category FAQ Section -->
-    <section class="section" id="video-faq">
-        <div class="container">
-            <h2 class="section-title">Video Library <span>FAQ</span></h2>
-            
-            <div class="faq-container">
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <h3>How do I access the video library?</h3>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Our video library is available to all registered schools and students. Simply visit the Video Library section and log in with your credentials provided by your school administrator.</p>
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <h3>Are the videos available for download?</h3>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>For copyright and licensing reasons, most videos are only available for streaming. However, some workshop materials and presentations may be available for download.</p>
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <h3>What topics are covered in the video library?</h3>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Our library includes tutorials on AI & Robotics, Web Development, Financial Literacy, plus recordings of past workshops and guest lectures from industry experts.</p>
-                    </div>
-                </div>
-                
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <h3>Can I request specific video content?</h3>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Absolutely! We welcome suggestions from students and educators. Use the Contact form to send us your requests.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Student Projects Section -->
     <section class="section" id="student-projects">
         <div class="container">
@@ -1884,9 +2044,9 @@
                     <ul style="list-style: none;">
                         <li style="margin-bottom: 10px;"><a href="#why" style="color: var(--text-muted); transition: var(--transition);">Why Geniusphere</a></li>
                         <li style="margin-bottom: 10px;"><a href="#courses" style="color: var(--text-muted); transition: var(--transition);">Courses</a></li>
+                        <li style="margin-bottom: 10px;"><a href="#events" style="color: var(--text-muted); transition: var(--transition);">Events</a></li>
                         <li style="margin-bottom: 10px;"><a href="#team" style="color: var(--text-muted); transition: var(--transition);">Our Team</a></li>
                         <li style="margin-bottom: 10px;"><a href="#schools" style="color: var(--text-muted); transition: var(--transition);">Schools</a></li>
-                        <li style="margin-bottom: 10px;"><a href="#video-faq" style="color: var(--text-muted); transition: var(--transition);">Video Library</a></li>
                         <li style="margin-bottom: 10px;"><a href="#student-projects" style="color: var(--text-muted); transition: var(--transition);">Student Projects</a></li>
                     </ul>
                 </div>
@@ -2198,21 +2358,6 @@
             }
         });
         
-        // FAQ Functionality
-        document.querySelectorAll('.faq-question').forEach(question => {
-            question.addEventListener('click', () => {
-                const faqItem = question.parentElement;
-                faqItem.classList.toggle('active');
-                
-                // Close other open FAQs
-                document.querySelectorAll('.faq-item').forEach(item => {
-                    if (item !== faqItem && item.classList.contains('active')) {
-                        item.classList.remove('active');
-                    }
-                });
-            });
-        });
-        
         // Form submission
         document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
@@ -2220,47 +2365,81 @@
             this.reset();
         });
         
-        // Course Highlights Slider
-        const slides = document.querySelectorAll('.highlight-slide');
-        const dots = document.querySelectorAll('.highlight-dot');
-        let currentSlide = 0;
-        
-        function showSlide(index) {
-            slides.forEach((slide, i) => {
-                if (i === index) {
-                    slide.classList.add('active');
-                    slide.classList.remove('prev');
-                } else if (i === (index - 1 + slides.length) % slides.length) {
-                    slide.classList.add('prev');
-                    slide.classList.remove('active');
-                } else {
-                    slide.classList.remove('active', 'prev');
-                }
-            });
-            
-            dots.forEach((dot, i) => {
-                dot.classList.toggle('active', i === index);
-            });
-        }
-        
-        function nextSlide() {
-            currentSlide = (currentSlide + 1) % slides.length;
-            showSlide(currentSlide);
-        }
-        
-        // Set up dot navigation
-        dots.forEach((dot, index) => {
-            dot.addEventListener('click', () => {
-                currentSlide = index;
-                showSlide(currentSlide);
+        // Course card flip functionality
+        document.querySelectorAll('.flip-button').forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const card = button.closest('.course-category');
+                card.classList.toggle('flipped');
             });
         });
         
-        // Auto-rotate slides every 5 seconds
-        setInterval(nextSlide, 5000);
+        // Course card flip on click (whole card)
+        document.querySelectorAll('.course-category').forEach(card => {
+            card.addEventListener('click', function() {
+                // Only flip if not already flipping from button click
+                if (!event.target.closest('.flip-button')) {
+                    this.classList.toggle('flipped');
+                }
+            });
+        });
         
-        // Initialize slider
-        showSlide(currentSlide);
+        // Enhanced Bubble Animation
+        const bgAnimation = document.getElementById('bgAnimation');
+        const colors = [
+            'var(--accent-blue)', 
+            'var(--accent-green)', 
+            'var(--accent-purple)', 
+            'var(--accent-pink)'
+        ];
+        
+        function createBubble() {
+            const bubble = document.createElement('div');
+            bubble.classList.add('bg-bubble');
+            
+            // Random size between 100px and 400px
+            const size = Math.random() * 300 + 100;
+            bubble.style.width = `${size}px`;
+            bubble.style.height = `${size}px`;
+            
+            // Random position
+            bubble.style.left = `${Math.random() * 100}%`;
+            bubble.style.top = `${Math.random() * 100}%`;
+            
+            // Random animation duration between 15s and 30s
+            const duration = Math.random() * 15 + 15;
+            bubble.style.animationDuration = `${duration}s`;
+            
+            // Random delay
+            bubble.style.animationDelay = `${Math.random() * 5}s`;
+            
+            // Random color
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            bubble.style.background = color;
+            
+            // Random blur between 30px and 70px
+            const blur = Math.random() * 40 + 30;
+            bubble.style.filter = `blur(${blur}px)`;
+            
+            // Random opacity between 0.1 and 0.3
+            const opacity = Math.random() * 0.2 + 0.1;
+            bubble.style.opacity = opacity;
+            
+            bgAnimation.appendChild(bubble);
+            
+            // Remove bubble after animation completesGFGGYFYUFDSEAW
+            setTimeout(() => {
+                bubble.remove();
+            }, duration * 1000);
+        }
+        
+        // Create initial bubbles
+        for (let i = 0; i < 8; i++) {
+            createBubble();
+        }
+        
+        // Continue creating bubbles periodically
+        setInterval(createBubble, 2000);
     </script>
 </body>
 </html>
